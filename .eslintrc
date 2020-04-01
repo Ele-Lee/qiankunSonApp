@@ -1,0 +1,90 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "airbnb",
+    "alloy/typescript",
+    "prettier" // 必须位于最后，覆盖代码风格相关 rules
+  ],
+  "plugins": ["@typescript-eslint", "react-hooks"],
+  "rules": {
+    "@typescript-eslint/no-inferrable-types": "off", // 关闭类型推断
+    // 禁止使用 var
+    "no-var": "error",
+    // ts 3.7.5的写法会报错，暂时关闭
+    "no-unused-expressions": 0,
+    // 优先使用 interface 而不是 type
+    "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
+    // 数据库字段中存在小写字母下划线命名方式
+    "camelcase": "off",
+    "import/prefer-default-export": 0,
+    // 为便于代码阅读，允许函数晚于使用定义
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false,
+        "classes": true
+      }
+    ],
+    // GraphQL 中用于自定义保留字段
+    "no-underscore-dangle": "off",
+    // GraphQL 中 Query 语句和返回名称相同
+    "no-shadow": "off",
+    "no-console": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "react/forbid-prop-types": "off",
+    "react/jsx-first-prop-new-line": "off",
+    "react/jsx-indent-props": "off",
+    "react/jsx-max-props-per-line": "off",
+    "react/jsx-closing-bracket-location": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/media-has-caption": "off",
+    "react/prop-types": "off",
+    // react 支持 .js
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    // 解决window下换行格式的报错
+    "linebreak-style": "off",
+    "no-return-assign": 0,
+    "react/jsx-wrap-multilines": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "jsx-a11y/href-no-hash": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/accessible-emoji": 0,
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/no-array-index-key": 1,
+    "no-useless-escape": 0,
+    "no-case-declarations": 0,
+    "@typescript-eslint/camelcase": 0,
+    "@typescript-eslint/ban-ts-ignore": 1,
+    "@typescript-eslint/interface-name-prefix": 1
+  },
+  "globals": {
+    "lib": true
+  },
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 10,
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "modules": true,
+      "jsx": true
+    },
+    "env": { "es6": true },
+    // "sourceType": "module",
+    "jsx": true
+  },
+  "env": {
+    "browser": true,
+    "serviceworker": true
+  }
+}

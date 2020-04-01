@@ -1,0 +1,5 @@
+{
+  "description": "UAE DEV 会自动修改这个文件中的配置，请勿手工修改",
+  "coursePortalApiHost": "http://courseportalapi.uae.shensz.local/portalapi",
+  "coursePortalHost": "http://courseportal.uae.shensz.local/portal"
+}

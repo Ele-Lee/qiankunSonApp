@@ -1,0 +1,144 @@
+@import '~antd/dist/antd.css';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.card-container {
+  background: #fff;
+}
+
+.ant-avatar {
+  transform: translateZ(0);
+}
+
+.ant-drawer-body {
+  height: 100%;
+}
+
+.ant-modal-mask {
+  z-index: 997;
+}
+
+.ant-modal-wrap {
+  z-index: 998;
+}
+
+.user-card {
+  z-index: 999;
+
+  // 资料卡片的宽高
+  .ant-popover-inner-content {
+    width: 350px;
+    height: 350px;
+    overflow: auto;
+  }
+}
+
+.chatroom-at-list {
+  // at卡片的宽高
+  .ant-popover-inner-content {
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+.apply-add-white-list-modal {
+  .ant-modal-confirm-btns {
+    display: none;
+  }
+
+  .ant-modal-confirm-content {
+    margin: 0;
+  }
+}
+
+.preview-image-modal {
+  .ant-modal-body {
+    padding: 15px;
+  }
+
+  .ant-modal-confirm-body {
+    .anticon {
+      display: none;
+    }
+  }
+
+  .ant-modal-confirm-body > .anticon + .ant-modal-confirm-title + .ant-modal-confirm-content {
+    margin: 0;
+    text-align: center;
+  }
+
+  .ant-modal-confirm-btns {
+    display: none;
+  }
+
+  .ant-modal-confirm-title {
+    display: none;
+  }
+}
+
+.widthout-btn-modal {
+  .ant-modal-body {
+    padding: 15px;
+  }
+
+  .ant-modal-confirm-body {
+    .anticon {
+      display: none;
+    }
+  }
+
+  .ant-modal-confirm-body > .anticon + .ant-modal-confirm-title + .ant-modal-confirm-content {
+    margin: 0;
+    text-align: center;
+  }
+
+  .ant-modal-confirm-btns {
+    display: none;
+  }
+}
+
+.wx-message-menu {
+  .ant-popover-inner-content {
+    padding: 0;
+  }
+}
+
+.patter-drawer {
+  .ant-drawer-body {
+    padding: 15px;
+  }
+}
+
+.no-close-btn-notification {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 400px;
+
+  .ant-notification-notice-close {
+    visibility: hidden;
+  }
+}
+
+//--------table的滚动条常驻 start--------
+.ant-table-scroll ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+.ant-table-scroll ::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+//--------table的滚动条常驻 end--------

@@ -1,0 +1,74 @@
+variables:
+  NODE_VERSION: 10.15.3
+  GIT_STRATEGY: clone
+
+default:
+  before_script:
+    # - nvm install $NODE_VERSION
+    - nvm use $NODE_VERSION
+    - npm install
+
+stages:
+  - build
+  - notify
+  - deploy_dev
+  # - deploy_prod
+  # - doc
+
+# BuildDoc:
+#   only:
+#     - develop
+#   tags:
+#     - share-runner
+#   stage: doc
+#   script:
+#     - rm -rf ./.docz
+#     - npm run docz:build
+#     - upload2doc -docz_path ./.docz/dist -app_id guo_yunying
+
+.default_job:
+  tags:
+    - share-runner
+  dependencies: []
+
+build:
+  extends: .default_job
+  only:
+    - prepublish
+    - /^(feature|hotfix)\/.*/
+    - develop
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/
+    - /^v[0-9]+\.[0-9]+\.[0-9]-beta[0-9]$/
+  stage: build
+  script:
+    # - npm run test
+    - rm -rf build
+    - CI=false npm run build
+    - bash scripts/pack.sh -b $CI_COMMIT_REF_NAME -h $CI_COMMIT_SHA
+    - upload2uae -pkg_path ./pkgs -app_id 144 # UAE APP ID
+
+deploy_dev:
+  extends: .default_job
+  only:
+    - prepublish
+    # - /^feature\/.*/
+    - develop
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/
+  stage: deploy_dev
+  script:
+    - restart_dev -app_id 144 # 重启开发环境
+
+# deploy_prod:
+#   extends: .default_job
+#   only:
+#     - /^v[0-9]+\.[0-9]+\.[0-9]+$/
+#   stage: deploy_prod
+#   script:
+#     - restart_uae -app_id 144 # 重启生产环境
+
+notify:
+  extends: .default_job
+  stage: notify
+  when: on_failure
+  script:
+    - 'dingtalk_alarm "{\"msgtype\": \"markdown\", \"markdown\": {\"title\": \"Gitlab ci pipeline fail\", \"text\": \"### Gitlab CI Pipeline Build Fail @17620067816 @18826497335 @13542651211 ### project: $PROJECT_NAME\n\n branch: $CI_COMMIT_REF_NAME\n\n username: $GITLAB_USER_NAME\n\n email: $GITLAB_USER_EMAIL\n\n pipeline: $CI_PIPELINE_ID\n\n detail: [$CI_PIPELINE_URL]($CI_PIPELINE_URL)\n\n\"}, \"at\": { \"atMobiles\": [\"17620067816\", \"18826497335\", \"13542651211\"], \"isAtAll\": false}}"'
